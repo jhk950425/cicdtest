@@ -9,8 +9,8 @@ pipeline {
     stage('docker build and push') {
       steps {
         sh '''
-        sudo docker build -t jhk950425/testweb:newnewshop .
-        sudo docker push jhk950425/testweb:newnewshop
+        sudo docker build -t jhk950425/testweb:newnewmain .
+        sudo docker push jhk950425/testweb:newnewmain
         '''
       }
     }
@@ -18,7 +18,7 @@ pipeline {
       steps {
         sh '''
         sudo kauth
-	sudo kubectl set image deployment deploy-main ctn-main=jhk950425/testweb:newnewshop
+	sudo kubectl set image deployment deploy-main ctn-main=jhk950425/testweb:newnewmain
         '''
       }
     }
