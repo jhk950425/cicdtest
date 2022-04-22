@@ -18,13 +18,6 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: test-vol
-          mountPath: /usr/share/nginx/html/
-      volumes:        
-      - name: test-vol
-        configMap:
-          name: index
 ---
 apiVersion: v1  
 kind: Service
