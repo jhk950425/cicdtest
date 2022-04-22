@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-test-pods-label
+  template:
+    metadata:
+      name: my-test-pod
+      labels:
+        app: my-test-pods-label
+    spec:
+      containers:
+      - name: ctn-test
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: test-vol
+          mountPath: /usr/share/nginx/html/
+      volumes:        
+      - name: test-vol
+        configMap:
+          name: index
+---
+apiVersion: v1  
+kind: Service
+metadata:
+  name: test-lb
+spec:
+  ports:
+  - name: test-port
+    targetPort: 80
+    port: 80
+  selector:
+    app: my-test-pods-label
+  type: LoadBalancer
